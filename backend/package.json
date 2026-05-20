@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "build:deploy": "cd ../frontend && npm install && npm run build && node ../backend/scripts/copy-frontend-dist.mjs",
+    "render:build": "cd ../frontend && npm install && npm run build && node ../backend/scripts/copy-frontend-dist.mjs",
     "dev": "node --watch server.js",
     "login": "node scripts/save-cookies.js",
     "playwright:install": "npx playwright install chromium",

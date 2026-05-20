@@ -173,21 +173,31 @@ app.post('/api/ugc/report', (req, res) => {
 });
 
 const publicDir = path.join(__dirnameServer, 'public');
-const hasFrontendBuild = fs.existsSync(path.join(publicDir, 'index.html'));
-const serveFrontend = process.env.SERVE_FRONTEND === '1' || hasFrontendBuild;
-if (serveFrontend && hasFrontendBuild) {
-  app.use(express.static(publicDir));
+const indexHtml = path.join(publicDir, 'index.html');
+const hasFrontendBuild = fs.existsSync(indexHtml);
+const wantFrontend = process.env.SERVE_FRONTEND === '1' || process.env.NODE_ENV === 'production' || hasFrontendBuild;
+
+if (wantFrontend && hasFrontendBuild) {
+  app.use(express.static(publicDir, { index: 'index.html', maxAge: '1h' }));
   app.get('*', (req, res, next) => {
     if (req.path.startsWith('/api') || req.path === '/ws' || req.path.startsWith('/health')) {
       return next();
     }
-    res.sendFile(path.join(publicDir, 'index.html'));
+    res.sendFile(indexHtml);
+  });
+} else if (wantFrontend) {
+  app.get('/', (_req, res) => {
+    res.status(503).type('html').send(
+      '<!DOCTYPE html><html><body style="font-family:sans-serif;padding:24px">' +
+      '<h1>介嘎算</h1><p>H5 未构建：请在 Render 重新 Deploy，或本地执行 npm run render:build</p>' +
+      '<p><a href="/api/health">/api/health</a></p></body></html>'
+    );
   });
 } else {
-  app.get('/', (_, res) => {
+  app.get('/', (_req, res) => {
     res.json({
       ok: true,
-      message: '介嘎算 API 已运行。请用 http://localhost:5173 打开界面，或执行 backend 目录 npm run build:deploy 后设 SERVE_FRONTEND=1',
+      message: '介嘎算 API。设 SERVE_FRONTEND=1 或执行 npm run render:build',
       health: '/api/health',
     });
   });

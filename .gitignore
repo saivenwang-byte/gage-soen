@@ -1,7 +1,7 @@
 .cursor/
 node_modules/
 dist/
-backend/public/
+# backend/public/ — committed for Render deploy reliability
 preview-lock/dist/
 export-bundle/
 export-text-for-ai/
