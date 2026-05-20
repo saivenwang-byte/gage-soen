@@ -14,7 +14,7 @@
 |----------|------|
 | 1. 推代码 | 双击 **`推送并部署.bat`** |
 | 2. 部署网站 | 双击 **`一键部署Render.bat`** 或在 Render 点 Approve |
-| 3. 发给别人 | 链接 **https://jiegasuan.onrender.com/** |
+| 3. 发给别人 | 链接 **https://gage-soen.onrender.com/** |
 | 4. 小程序 | 微信开发者工具导入 **`legacy-miniprogram/`**，配置业务域名后转发 |
 
 正式地址写在 **`deploy.config.json`**，改完后执行 `node scripts/sync-deploy-config.mjs`。
