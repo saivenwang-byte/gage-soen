@@ -1,8 +1,8 @@
 {
   "appName": "介嘎算",
   "version": "0.3.1",
-  "productionUrl": "https://jiegasuan.onrender.com",
+  "productionUrl": "https://gage-soen.onrender.com",
   "githubRepo": "https://github.com/saivenwang-byte/gage-soen",
-  "renderService": "jiegasuan",
+  "renderService": "gage-soen",
   "miniprogramDir": "legacy-miniprogram"
 }

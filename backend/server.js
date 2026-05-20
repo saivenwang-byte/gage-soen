@@ -206,6 +206,6 @@ if (wantFrontend && hasFrontendBuild) {
 httpServer.listen(config.port, '0.0.0.0', () => {
   const base = `http://0.0.0.0:${config.port}`;
   console.log(`介嘎算 API ${base} — ${config.slogan}`);
-  if (serveFrontend) console.log(`H5 界面 ${base}/`);
+  if (wantFrontend && hasFrontendBuild) console.log(`H5 界面 ${base}/`);
   console.log(`WebSocket ws://localhost:${config.port}/ws?jobId=<id>`);
 });
