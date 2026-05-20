@@ -30,6 +30,11 @@ async function gh(url, opts = {}) {
   return text ? JSON.parse(text) : null;
 }
 
+try {
+  execSync('git fetch origin main', { stdio: 'pipe' });
+} catch {
+  /* 忽略 fetch 失败，下面用 API 的 ref */
+}
 const remoteSha = (await gh(`${base}/git/ref/heads/main`)).object.sha;
 const localSha = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
 if (remoteSha === localSha) {
