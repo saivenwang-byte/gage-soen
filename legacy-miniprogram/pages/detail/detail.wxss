@@ -1,0 +1,22 @@
+.wrap { padding: 28rpx; }
+.title { font-size: 36rpx; font-weight: 600; display: block; }
+.addr { font-size: 26rpx; color: #888; margin-top: 12rpx; display: block; }
+.card {
+  margin-top: 24rpx;
+  padding: 24rpx;
+  background: #fff;
+  border-radius: 16rpx;
+}
+.highlight { background: linear-gradient(135deg, #e8f5ef, #fff); }
+.big { font-size: 44rpx; color: #c45c26; font-weight: 700; display: block; }
+.sub { font-size: 26rpx; color: #666; margin-top: 12rpx; display: block; }
+.row { display: flex; justify-content: space-between; padding: 16rpx 0; border-bottom: 1rpx solid #f0f0f0; font-size: 28rpx; }
+.k { color: #888; }
+.tag {
+  display: inline-block;
+  margin: 8rpx 12rpx 0 0;
+  padding: 8rpx 16rpx;
+  background: #f0f0f0;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+}

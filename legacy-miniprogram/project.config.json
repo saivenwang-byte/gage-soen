@@ -1,0 +1,13 @@
+{
+  "description": "奉贤区团购比价",
+  "packOptions": { "ignore": [] },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "minified": true
+  },
+  "compileType": "miniprogram",
+  "appid": "touristappid",
+  "projectname": "外婆闺蜜比价",
+  "miniprogramRoot": "./"
+}

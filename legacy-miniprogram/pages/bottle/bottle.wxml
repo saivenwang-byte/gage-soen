@@ -1,0 +1,36 @@
+<view class="sea">
+  <text class="sea-title">🍾 暇兜兜</text>
+  <text class="sea-sub">暇兜兜，今朝海上有 {{poolCount}} 只新瓶子等侬来捞 · 今日还可 {{remain}} 次</text>
+
+  <view class="bottles">
+    <view
+      class="bottle {{item.color}}"
+      wx:for="{{bottles}}"
+      wx:key="scene"
+      data-scene="{{item.scene}}"
+      bindtap="onPickBottle"
+      style="left: {{item.left}}%; animation-delay: {{item.delay}}s;"
+    >🍾</view>
+  </view>
+
+  <button class="pick-btn" bindtap="onPick" disabled="{{remain<=0 || picking}}">
+    {{remain>0 ? (picking ? '捞取中…' : '随便捞一只') : '明朝再来'}}
+  </button>
+</view>
+
+<view class="slip {{showSlip ? 'show' : ''}}" wx:if="{{lastPick}}">
+  <view class="slip-inner">
+    <text class="slip-sign">{{lastPick.sign}}</text>
+    <block wx:if="{{lastPick.empty}}">
+      <text class="slip-title">🫙 空瓶</text>
+      <text class="slip-text">{{lastPick.text}}</text>
+    </block>
+    <block wx:else>
+      <text class="slip-title">{{lastPick.title}}</text>
+      <text class="slip-promo">{{lastPick.discountText}}</text>
+      <text class="slip-text">{{lastPick.human}}</text>
+      <text class="slip-source">— {{lastPick.source}}</text>
+    </block>
+    <button size="mini" bindtap="closeSlip">收起</button>
+  </view>
+</view>

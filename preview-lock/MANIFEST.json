@@ -1,0 +1,13 @@
+﻿{
+    "summary":  "Stay discovery, life and entertainment scenes, unlimited bottle picks",
+    "sourceFrontend":  "D:\\【私人】\\【外婆闺蜜比价】\\frontend",
+    "version":  "0.3.0",
+    "lockedDate":  "2026-05-20",
+    "previewDist":  "D:\\【私人】\\【外婆闺蜜比价】\\preview-lock\\dist",
+    "devUrl":  "http://localhost:5173",
+    "sourceRoot":  "D:\\【私人】\\【外婆闺蜜比价】",
+    "previewUrl":  "http://localhost:5174",
+    "product":  "jiegasuan",
+    "gitCommit":  "",
+    "lockedAt":  "2026-05-20 14:16:55"
+}

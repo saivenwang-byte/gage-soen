@@ -1,0 +1,29 @@
+{
+  "name": "jiegasuan-backend",
+  "version": "1.0.0",
+  "description": "介嘎算 — 奉贤生活优惠实时比价 API",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "login": "node scripts/save-cookies.js",
+    "playwright:install": "npx playwright install chromium",
+    "test": "node test-crawlers.js",
+    "test:dianping": "node test-crawlers.js dianping",
+    "test:xiaohongshu": "node test-crawlers.js xiaohongshu",
+    "test:crawlers": "node test-crawlers.js all",
+    "validate:coverage": "node scripts/validate-coverage.js"
+  },
+  "dependencies": {
+    "bull": "^4.16.5",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "ioredis": "^5.4.2",
+    "playwright": "^1.49.1",
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "uuid": "^11.0.5",
+    "ws": "^8.18.0"
+  }
+}

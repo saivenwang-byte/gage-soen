@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/aoso/aoso",
+    "pages/bottle/bottle",
+    "pages/mine/mine",
+    "pages/detail/detail"
+  ],
+  "window": {
+    "navigationBarTitleText": "介嘎算",
+    "navigationBarBackgroundColor": "#F4C542",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F9F9F5"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#2D2D2D",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/aoso/aoso",
+        "text": "奥扫",
+        "iconPath": "assets/tab/aoso.png",
+        "selectedIconPath": "assets/tab/aoso-active.png"
+      },
+      {
+        "pagePath": "pages/bottle/bottle",
+        "text": "暇兜兜",
+        "iconPath": "assets/tab/bottle.png",
+        "selectedIconPath": "assets/tab/bottle-active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "assets/tab/mine.png",
+        "selectedIconPath": "assets/tab/mine-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

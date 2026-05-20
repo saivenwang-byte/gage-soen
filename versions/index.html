@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>jiegasuan version ledger</title>
+  <style>
+    :root { --bg: #f7f4ed; --card: #fff; --accent: #3d5a3c; --honey: #c4a574; }
+    body { font-family: "Microsoft YaHei", sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; line-height: 1.6; }
+    h1 { color: var(--accent); font-size: 1.5rem; }
+    .card { background: var(--card); border-radius: 12px; padding: 16px 20px; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .highlight { border-left: 4px solid var(--honey); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+    th { background: #faf9f5; color: var(--accent); }
+    code { font-size: 11px; word-break: break-all; background: #f5f5f0; padding: 2px 6px; border-radius: 4px; }
+    .meta { font-size: 12px; color: #888; }
+    ol { padding-left: 1.2rem; }
+  </style>
+</head>
+<body>
+  <h1>浠嬪槑绠?路 鐗堟湰婧簮鍙拌处</h1>
+  <p class="meta">Generated 2026-05-20 14:16:55 路 current v0.3.0 路 workspace <code>d:\【私人】\【外婆闺蜜比价】</code></p>
+
+    <section class="card highlight">
+    <h2>Locked preview (for review)</h2>
+    <p><strong>v0.3.0</strong> locked at 2026-05-20 14:16:55</p>
+    <p>Stay discovery, life and entertainment scenes, unlimited bottle picks</p>
+    <ul>
+      <li>Folder: <code>D:\【私人】\【外婆闺蜜比价】\preview-lock\dist</code></li>
+      <li>Preview: <a href="http://localhost:5174">http://localhost:5174</a> (run locked-preview bat first)</li>
+      <li>Dev build: <a href="http://localhost:5173">http://localhost:5173</a></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Workflow</h2>
+    <ol>
+      <li>Develop: open dev bat -> :5173</li>
+      <li>Lock UI: run lock-preview.ps1 -> preview-lock\dist</li>
+      <li>Review: open locked-preview bat -> :5174</li>
+      <li>Archive code: snapshot-version.ps1 -> versions\vX.Y.Z-name\</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>Version history</h2>
+    <table>
+      <thead>
+        <tr><th>Version</th><th>Codename</th><th>Date</th><th>Snapshot</th><th>Path</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+            <tr>
+      <td><strong>v0.1.0</strong></td>
+      <td>骨架与爬虫试验</td>
+      <td>-</td>
+      <td>notes only</td>
+      <td><code>d:\【私人】\【外婆闺蜜比价】\versions\v0.1.0-骨架与爬虫</code></td>
+      <td>Express 后端、爬虫框架、早期多 Tab 前端</td>
+    </tr>    <tr>
+      <td><strong>v0.2.0</strong></td>
+      <td>分类奥扫与精选数据</td>
+      <td>-</td>
+      <td>notes only</td>
+      <td><code>d:\【私人】\【外婆闺蜜比价】\versions\v0.2.0-分类奥扫</code></td>
+      <td>sceneTaxonomy、deals.seed.json、子类全覆盖校验</td>
+    </tr>    <tr>
+      <td><strong>v0.3.0</strong></td>
+      <td>PRD终极执行版对齐</td>
+      <td>2026-05-19</td>
+      <td>yes</td>
+      <td><code>d:\【私人】\【外婆闺蜜比价】\versions\v0.3.0-prd-mvp</code></td>
+      <td>三 Tab、奥扫种草流程、暇兜兜不限次、生活/娱乐场景、导航与版次戳</td>
+    </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Files</h2>
+    <ul>
+      <li><code>VERSION</code></li>
+      <li><code>VERSION_HISTORY.md</code></li>
+      <li><code>CURRENT.md</code></li>
+      <li><code>PATHS.md</code></li>
+      <li><code>versions\manifest.json</code></li>
+    </ul>
+  </section>
+</body>
+</html>

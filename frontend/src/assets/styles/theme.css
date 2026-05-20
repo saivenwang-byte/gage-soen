@@ -1,0 +1,539 @@
+/* 介嘎算 · 弄堂傍晚品牌色（蜜糖姜黄 / 杏仁奶白 / 梧桐深绿 / 石库门灰 / 落日暖橙） */
+
+:root {
+  /* 品牌五色 */
+  --brand-honey: #e8a84c;
+  --brand-honey-dark: #d4923a;
+  --brand-honey-light: #f5e6d0;
+  --brand-almond: #fff8f0;
+  --brand-almond-deep: #f5ede3;
+  --brand-green: #3d5a3c;
+  --brand-green-light: #eef3ed;
+  --brand-stone: #4a4540;
+  --brand-stone-muted: #7a746c;
+  --brand-sunset: #f08060;
+  --brand-sunset-light: #fff0eb;
+
+  /* 语义映射 */
+  --color-primary: var(--brand-honey);
+  --color-primary-dark: var(--brand-honey-dark);
+  --color-secondary: var(--brand-stone);
+  --color-text: var(--brand-stone);
+  --color-text-muted: var(--brand-stone-muted);
+  --color-accent: var(--brand-green);
+  --color-urgent: var(--brand-sunset);
+  --color-bg: var(--brand-almond);
+  --color-danger: #c45c4a;
+  --color-card-bg: #ffffff;
+  --color-highlight-bg: var(--brand-honey-light);
+  --color-highlight-border: var(--brand-honey);
+  --color-success: var(--brand-green);
+
+  --font-title: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body: 'PingFang SC', system-ui, -apple-system, sans-serif;
+  --shadow-card: 0 2px 14px rgba(74, 69, 64, 0.08);
+  --shadow-warm: 0 4px 16px rgba(232, 168, 76, 0.18);
+  --radius-card: 16px;
+  --min-touch: 44px;
+
+  /* 克制渐变：仅暖光，无彩虹 */
+  --gradient-warm-header: linear-gradient(180deg, var(--brand-almond) 0%, var(--brand-almond-deep) 100%);
+  --gradient-warm-cta: linear-gradient(180deg, #edb85a 0%, var(--brand-honey) 100%);
+  --gradient-dusk-sea: linear-gradient(180deg, #f2f6f1 0%, #e6efe5 55%, var(--brand-almond-deep) 100%);
+
+  --bg: var(--color-bg);
+  --card: var(--color-card-bg);
+  --primary: var(--brand-green);
+  --accent: var(--brand-sunset);
+  --text: var(--color-text);
+  --muted: var(--brand-stone-muted);
+}
+
+/* 底纹：黄昏暖光 + 梧桐影，极淡 */
+body {
+  background-color: var(--color-bg);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 50% -5%, rgba(232, 168, 76, 0.09), transparent 55%),
+    radial-gradient(ellipse 45% 40% at 95% 90%, rgba(61, 90, 60, 0.06), transparent 50%),
+    radial-gradient(ellipse 40% 35% at 5% 75%, rgba(240, 128, 96, 0.05), transparent 45%);
+}
+
+/* 顶栏：杏仁底 + 石库门字 + 姜黄点缀线（非黄底黑字） */
+.header-mosaic,
+.header-brand {
+  position: relative;
+  color: var(--color-text);
+  padding: 24px 16px 18px;
+  border-radius: 0 0 20px 20px;
+  background: var(--gradient-warm-header);
+  border-bottom: 3px solid var(--color-primary);
+  box-shadow: var(--shadow-warm);
+}
+
+.header-mosaic::before,
+.header-brand::before {
+  display: none;
+}
+
+.header-mosaic h1,
+.header-mosaic h2,
+.header-brand h1,
+.header-brand h2 {
+  color: var(--color-text);
+  text-shadow: none;
+}
+
+.header-mosaic .header-sub,
+.header-brand .header-sub {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+/* 暇兜兜：梧桐绿暮意，仍用浅色底 */
+.header-mosaic-sea,
+.header-brand-sea {
+  background: var(--gradient-dusk-sea);
+  border-bottom-color: var(--brand-green);
+}
+
+.header-mosaic-sea h1,
+.header-brand-sea h1 {
+  color: var(--brand-green);
+}
+
+.header-mosaic-sea .header-sub,
+.header-brand-sea p {
+  color: var(--color-text-muted);
+}
+
+/* 捞瓶按钮：姜黄圈，克制 */
+.bottle-pick-ring {
+  border: 3px solid var(--brand-honey) !important;
+  box-shadow: var(--shadow-warm) !important;
+  background: linear-gradient(145deg, #fff 0%, var(--brand-almond) 100%) !important;
+  color: var(--color-text) !important;
+}
+
+.bottle-ring-coffee { border-color: #c4a574 !important; }
+.bottle-ring-pet { border-color: #7eb8a2 !important; }
+.bottle-ring-expiring { border-color: var(--brand-sunset) !important; }
+.bottle-ring-stay { border-color: #8b9dc3 !important; }
+.bottle-ring-entertainment { border-color: var(--brand-green) !important; }
+.bottle-ring-life { border-color: #6b9bd1 !important; }
+.bottle-ring-all { border-color: var(--brand-honey) !important; }
+
+.bottle-type-summary {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+.bottle-result-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  background: var(--color-highlight-bg);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.bottle-fortune-snippet {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #5a4a2a;
+  font-style: italic;
+}
+.bottle-detail-cta-hint {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: #888;
+  line-height: 1.4;
+}
+.bottle-detail-cta {
+  flex-shrink: 0;
+  padding: 8px 12px !important;
+  font-size: 12px !important;
+  border-radius: 10px !important;
+}
+
+.bottle-empty-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.group-promo-card {
+  margin: 12px 0;
+  padding: 12px 14px;
+  background: var(--brand-green-light);
+  border-radius: 12px;
+  border: 1px solid rgba(61, 90, 60, 0.15);
+}
+
+.group-promo-title {
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand-green);
+}
+
+.group-promo-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--brand-green);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.group-promo-line {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.group-promo-save {
+  color: var(--brand-sunset);
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.group-promo-compact {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--brand-green);
+}
+
+.group-promo-hint {
+  color: #888;
+  font-size: 11px;
+}
+
+.location-status {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.location-status-gps {
+  background: rgba(61, 90, 60, 0.08);
+  border: 1px solid rgba(61, 90, 60, 0.2);
+}
+
+.location-status-fallback {
+  background: #fff8e6;
+  border: 1px solid rgba(240, 128, 96, 0.35);
+}
+
+.location-status-loading {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.location-status-main {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-text);
+}
+
+.location-status-acc {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.location-status-sub {
+  margin: 6px 0 0;
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.aoso-steps-hint {
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+}
+
+.aoso-filter-panel {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+}
+
+.aoso-filter-step-label {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--brand-green);
+}
+
+.aoso-mode-row {
+  margin-top: 10px;
+}
+
+.aoso-mode-select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(74, 69, 64, 0.15);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.aoso-search-btn {
+  width: 100% !important;
+  margin-top: 12px;
+  padding: 14px !important;
+  font-size: 16px !important;
+  border-radius: 14px !important;
+}
+
+.search-criteria-summary {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px dashed rgba(74, 69, 64, 0.2);
+}
+
+.search-criteria-title {
+  margin: 0 0 8px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.search-criteria-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.criteria-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 999px;
+  background: var(--brand-almond);
+  color: var(--color-text);
+}
+
+.criteria-chip-accent {
+  background: var(--brand-green-light);
+  color: var(--brand-green);
+  font-weight: 600;
+}
+
+.criteria-chip-muted {
+  background: rgba(74, 69, 64, 0.08);
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.aoso-stay-discovery-banner {
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  border-left: 3px solid var(--brand-honey);
+}
+
+.aoso-optional-toggle {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px dashed rgba(74, 69, 64, 0.25);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.aoso-optional-panel {
+  margin-top: 8px;
+}
+
+.aoso-empty-prompt {
+  text-align: center;
+  color: #888;
+  padding: 32px 16px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.stay-group-hint-inline {
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: var(--brand-green);
+  background: var(--brand-green-light);
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
+.dev-data-hint {
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  font-size: 11px;
+  color: #666;
+  background: #f5f5f0;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
+.app-version-stamp {
+  position: fixed;
+  right: 8px;
+  bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+  line-height: 1;
+  color: rgba(74, 69, 64, 0.35);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  user-select: none;
+  z-index: 150;
+  font-variant-numeric: tabular-nums;
+}
+
+.location-refresh-btn {
+  margin-top: 8px;
+  padding: 4px 12px;
+  font-size: 11px;
+  border-radius: 8px;
+  border: 1px solid rgba(74, 69, 64, 0.25);
+  background: #fff;
+  cursor: pointer;
+}
+
+/* 主按钮 */
+.btn-mosaic,
+.nav-route-back-btn,
+.nav-route-footer-primary {
+  background: var(--gradient-warm-cta) !important;
+  color: #fff !important;
+  border: none;
+  box-shadow: var(--shadow-warm);
+}
+
+/* 底部导航 */
+.bottom-nav-mosaic,
+.bottom-nav-brand {
+  border-top: 1px solid rgba(74, 69, 64, 0.1) !important;
+  box-shadow: 0 -2px 16px rgba(74, 69, 64, 0.06);
+  background: var(--brand-almond) !important;
+}
+
+.bottom-nav-mosaic::before,
+.bottom-nav-brand::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--brand-honey), transparent);
+}
+
+.bottom-nav-tab-active {
+  color: var(--brand-honey-dark) !important;
+  font-weight: 700 !important;
+}
+
+.bottom-nav-tab-active span:first-child {
+  filter: none;
+}
+
+/* 选中 Tab / 芯片 */
+.chip-mosaic-active,
+.tab-mosaic-active,
+.chip-brand-active,
+.tab-brand-active {
+  background: var(--brand-honey) !important;
+  color: #fff !important;
+  border-color: var(--brand-honey) !important;
+}
+
+/* 优惠标签：梧桐绿 */
+.tag-mosaic,
+.tag-brand {
+  border: 1px solid rgba(61, 90, 60, 0.35) !important;
+  background: var(--brand-green-light) !important;
+  color: var(--brand-green) !important;
+}
+
+/* 限时/紧迫：落日橙 */
+.tag-urgent {
+  border: 1px solid rgba(240, 128, 96, 0.4) !important;
+  background: var(--brand-sunset-light) !important;
+  color: #b85a3a !important;
+}
+
+/* 提示条（替代黑底白条） */
+.hint-bar-brand {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  background: var(--brand-green-light);
+  color: var(--brand-green);
+  border-radius: 10px;
+  font-size: 13px;
+  text-align: center;
+  font-weight: 600;
+  border-left: 4px solid var(--brand-green);
+}
+
+.hint-bar-warm {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  background: var(--brand-honey-light);
+  color: var(--brand-stone);
+  border-radius: 10px;
+  font-size: 13px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* 价格高亮 */
+.price-highlight {
+  color: var(--brand-honey-dark) !important;
+}
+
+.price-urgent {
+  color: var(--brand-sunset) !important;
+}

@@ -1,0 +1,62 @@
+/** 品牌色：暖玉黄 + 杏仁白 */
+page {
+  background: #f9f9f5;
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 28rpx;
+  color: #2d2d2d;
+}
+
+.card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+
+.tag {
+  display: inline-block;
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  margin-right: 12rpx;
+  margin-top: 8rpx;
+  border-radius: 20rpx;
+  background: #fffdf5;
+  border: 1rpx solid #f4c542;
+  color: #8a6d00;
+}
+
+.price-big {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #d94f4f;
+}
+
+.price-old {
+  font-size: 24rpx;
+  color: #aaa;
+  text-decoration: line-through;
+  margin-left: 12rpx;
+}
+
+.btn-primary {
+  background: #2d2d2d;
+  color: #fff;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+}
+
+.scene-tab {
+  display: inline-block;
+  padding: 12rpx 24rpx;
+  margin-right: 12rpx;
+  border-radius: 28rpx;
+  font-size: 24rpx;
+  border: 1rpx solid rgba(0, 0, 0, 0.12);
+}
+
+.scene-tab.active {
+  border: 2rpx solid #2d2d2d;
+  background: #fff;
+  font-weight: bold;
+}

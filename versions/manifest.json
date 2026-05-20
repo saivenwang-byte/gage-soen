@@ -1,0 +1,38 @@
+﻿{
+    "product":  "介嘎算 ga-ge-soen",
+    "workspaceRoot":  "d:\\【私人】\\【外婆闺蜜比价】",
+    "currentVersion":  "0.3.0",
+    "activeCodePath":  "d:\\【私人】\\【外婆闺蜜比价】",
+    "previewLock":  {
+                        "version":  "0.3.0",
+                        "lockedAt":  "2026-05-20 14:16:55",
+                        "path":  "D:\\【私人】\\【外婆闺蜜比价】\\preview-lock",
+                        "distPath":  "D:\\【私人】\\【外婆闺蜜比价】\\preview-lock\\dist",
+                        "summary":  "Stay discovery, life and entertainment scenes, unlimited bottle picks",
+                        "previewUrl":  "http://localhost:5174"
+                    },
+    "versions":  [
+                     {
+                         "version":  "0.1.0",
+                         "codename":  "骨架与爬虫试验",
+                         "path":  "d:\\【私人】\\【外婆闺蜜比价】\\versions\\v0.1.0-骨架与爬虫",
+                         "snapshot":  false,
+                         "notes":  "Express 后端、爬虫框架、早期多 Tab 前端"
+                     },
+                     {
+                         "version":  "0.2.0",
+                         "codename":  "分类奥扫与精选数据",
+                         "path":  "d:\\【私人】\\【外婆闺蜜比价】\\versions\\v0.2.0-分类奥扫",
+                         "snapshot":  false,
+                         "notes":  "sceneTaxonomy、deals.seed.json、子类全覆盖校验"
+                     },
+                     {
+                         "version":  "0.3.0",
+                         "codename":  "PRD终极执行版对齐",
+                         "path":  "d:\\【私人】\\【外婆闺蜜比价】\\versions\\v0.3.0-prd-mvp",
+                         "snapshot":  true,
+                         "notes":  "三 Tab、奥扫种草流程、暇兜兜不限次、生活/娱乐场景、导航与版次戳",
+                         "releasedAt":  "2026-05-19"
+                     }
+                 ]
+}

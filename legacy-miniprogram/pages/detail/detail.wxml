@@ -1,0 +1,23 @@
+<view class="wrap" wx:if="{{deal}}">
+  <text class="title">{{deal.title}}</text>
+  <text class="addr">{{deal.address}}</text>
+
+  <view class="card highlight">
+    <text class="big">人均实付 ¥{{deal.per_capita}}</text>
+    <text class="sub" wx:if="{{deal.saving_per_person > 0}}">每人可省 ¥{{deal.saving_per_person}}</text>
+    <text class="sub">优惠说明：{{deal.promo_note}}</text>
+  </view>
+
+  <view class="card">
+    <view class="row"><text class="k">套餐标价</text><text>¥{{deal.price}}{{deal.is_per_person ? '/人' : ''}}</text></view>
+    <view class="row" wx:if="{{deal.original_price}}"><text class="k">原价参考</text><text>¥{{deal.original_price}}</text></view>
+    <view class="row"><text class="k">活动文案</text><text>{{deal.promo_text || '无'}}</text></view>
+    <view class="row"><text class="k">规则类型</text><text>{{deal.parsed_promo}}</text></view>
+    <view class="row"><text class="k">评分</text><text>{{deal.rating || '-'}}</text></view>
+    <view class="row"><text class="k">划算指数</text><text>{{deal.score}}</text></view>
+  </view>
+
+  <view class="tags card">
+    <text wx:for="{{deal.tags}}" wx:key="*this" class="tag">{{item}}</text>
+  </view>
+</view>

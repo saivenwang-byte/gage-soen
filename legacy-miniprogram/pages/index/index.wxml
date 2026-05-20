@@ -1,0 +1,68 @@
+<view class="header">
+  <text class="title">奉贤区 · 团购比价</text>
+  <text class="sub">按人数算人均实付，找最划算的住/吃/行/玩</text>
+</view>
+
+<view class="filters card">
+  <view class="row">
+    <text class="label">出行人数</text>
+    <slider min="1" max="20" step="1" value="{{headcount}}" bindchange="onHeadcount" show-value />
+  </view>
+  <view class="row">
+    <text class="label">出行日期</text>
+    <picker mode="date" value="{{travelDate}}" bindchange="onDate">
+      <view class="picker-val">{{travelDate || '不限'}}</view>
+    </picker>
+  </view>
+  <view class="row">
+    <text class="label">关键词</text>
+    <input placeholder="民宿、海鲜、度假村…" value="{{keyword}}" bindinput="onKeyword" />
+  </view>
+  <view class="row">
+    <text class="label">人均上限(元)</text>
+    <input type="digit" placeholder="不限" value="{{maxPerCapita}}" bindinput="onMaxPrice" />
+  </view>
+</view>
+
+<scroll-view class="tabs" scroll-x>
+  <view
+    wx:for="{{categories}}"
+    wx:key="id"
+    class="tab {{activeCategory === item.id ? 'active' : ''}}"
+    data-id="{{item.id}}"
+    bindtap="onCategory"
+  >
+    {{item.icon}} {{item.name}}
+  </view>
+  <view class="tab {{activeCategory === '' ? 'active' : ''}}" data-id="" bindtap="onCategory">全部</view>
+</scroll-view>
+
+<view class="sort-bar">
+  <text class="sort {{sortBy==='score'?'on':''}}" data-sort="score" bindtap="onSort">最划算</text>
+  <text class="sort {{sortBy==='saving'?'on':''}}" data-sort="saving" bindtap="onSort">省最多</text>
+  <text class="sort {{sortBy==='price_asc'?'on':''}}" data-sort="price_asc" bindtap="onSort">最便宜</text>
+</view>
+
+<view wx:if="{{loading}}" class="loading">正在比价…</view>
+<view wx:elif="{{error}}" class="error">{{error}}</view>
+
+<block wx:else>
+  <view wx:for="{{items}}" wx:key="id" class="deal card" bindtap="goDetail" data-item="{{item}}">
+    <view class="deal-head">
+      <text class="deal-title">{{item.title}}</text>
+      <view class="score">力度 {{item.score}}</view>
+    </view>
+    <text class="addr">{{item.address}}</text>
+    <view class="promo" wx:if="{{item.promo_text}}">{{item.promo_text}}</view>
+    <view class="price-row">
+      <text class="per">人均 ¥{{item.per_capita}}</text>
+      <text class="save" wx:if="{{item.saving_per_person > 0}}">省 ¥{{item.saving_per_person}}/人</text>
+    </view>
+    <text class="note">{{item.promo_note}}</text>
+    <view class="meta">
+      <text wx:if="{{item.rating}}">★ {{item.rating}}</text>
+      <text class="tags" wx:for="{{item.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text>
+    </view>
+  </view>
+  <view wx:if="{{!items.length}}" class="empty">暂无匹配优惠，试试调整人数或分类</view>
+</block>

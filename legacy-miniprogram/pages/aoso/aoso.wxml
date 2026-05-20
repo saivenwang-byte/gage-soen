@@ -1,0 +1,59 @@
+<view class="header">
+  <text class="title">⚡ 奥扫</text>
+  <text class="sub">奥扫！帮侬寻附近{{distance}}公里顶嘎算的优惠。</text>
+</view>
+
+<view class="search-bar">
+  <input
+    class="search-input"
+    placeholder="输入关键词，或留空看全部"
+    value="{{keyword}}"
+    bindinput="onKeyword"
+    confirm-type="search"
+    bindconfirm="onSearch"
+  />
+  <button class="btn-search" size="mini" bindtap="onSearch">搜</button>
+</view>
+
+<scroll-view class="scene-row" scroll-x enable-flex>
+  <view
+    wx:for="{{scenes}}"
+    wx:key="key"
+    class="scene-tab {{scene===item.key?'active':''}}"
+    data-key="{{item.key}}"
+    bindtap="onScene"
+  >{{item.icon}} {{item.label}}</view>
+</scroll-view>
+
+<view class="distance-row">
+  <text>范围</text>
+  <slider min="0" max="2" step="1" value="{{distanceIdx}}" bindchange="onDistance" activeColor="#F4C542" block-size="20" />
+  <text class="km">{{distance}}km</text>
+</view>
+
+<view class="loading" wx:if="{{loading}}">帮侬搜罗中…稍等一歇歇 ☕</view>
+<view class="empty" wx:elif="{{!items.length}}">迭个区域还呒没找到，要勿要放宽到全区看看？</view>
+
+<view class="list" wx:else>
+  <view class="card item" wx:for="{{items}}" wx:key="id" data-item="{{item}}" bindtap="goDetail">
+    <view class="row">
+      <view class="info">
+        <text class="shop">{{item.title}}</text>
+        <view class="price-line">
+          <text class="price-big">¥{{item.discountPrice}}</text>
+          <text class="price-old" wx:if="{{item.originalPrice}}">¥{{item.originalPrice}}</text>
+          <text class="per">人均</text>
+        </view>
+        <text class="promo">{{item.discountText}}</text>
+        <text class="quote" wx:if="{{item.quote}}">「{{item.quote}}」</text>
+        <text class="source">— {{item.source}}</text>
+        <view>
+          <text class="tag" wx:for="{{item.emotionTags}}" wx:key="*this" wx:for-item="t">{{t}}</text>
+        </view>
+      </view>
+    </view>
+    <button class="fav-btn" size="mini" catchtap="onFav" data-item="{{item}}">
+      {{item._fav ? '已藏' : '收藏'}}
+    </button>
+  </view>
+</view>

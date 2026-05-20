@@ -1,0 +1,16 @@
+# Render.com — 后端 API（免费 Web Service）
+# Dashboard: New → Blueprint → 连接本仓库，或手动创建 Web Service 指向 backend/
+services:
+  - type: web
+    name: jiegasuan-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: PORT
+        value: "3001"
+      - key: DATA_SOURCE
+        value: curated

@@ -1,0 +1,98 @@
+.header {
+  background: linear-gradient(135deg, #f4c542, #f6ae2d);
+  padding: 32rpx 28rpx 24rpx;
+  border-radius: 0 0 32rpx 32rpx;
+}
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  display: block;
+}
+.sub {
+  font-size: 24rpx;
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 8rpx;
+  display: block;
+}
+.search-bar {
+  display: flex;
+  padding: 20rpx 24rpx;
+  gap: 16rpx;
+  align-items: center;
+}
+.search-input {
+  flex: 1;
+  background: #fff;
+  padding: 16rpx 24rpx;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+}
+.btn-search {
+  background: #2d2d2d !important;
+  color: #fff !important;
+}
+.scene-row {
+  white-space: nowrap;
+  padding: 0 24rpx 16rpx;
+}
+.distance-row {
+  display: flex;
+  align-items: center;
+  padding: 0 32rpx 20rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+.distance-row slider {
+  flex: 1;
+  margin: 0 20rpx;
+}
+.km {
+  font-weight: bold;
+  color: #2d2d2d;
+  min-width: 80rpx;
+}
+.loading,
+.empty {
+  text-align: center;
+  color: #888;
+  padding: 80rpx 40rpx;
+  font-size: 28rpx;
+}
+.list {
+  padding: 0 24rpx 120rpx;
+}
+.item .shop {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.price-line {
+  margin: 12rpx 0;
+}
+.per {
+  font-size: 22rpx;
+  color: #888;
+  margin-left: 8rpx;
+}
+.promo {
+  font-size: 26rpx;
+  color: #5b8c5a;
+  display: block;
+}
+.quote {
+  font-size: 24rpx;
+  color: #666;
+  font-style: italic;
+  margin-top: 8rpx;
+  display: block;
+}
+.source {
+  font-size: 22rpx;
+  color: #aaa;
+  display: block;
+  margin-top: 4rpx;
+}
+.fav-btn {
+  margin-top: 16rpx;
+  background: #f4c542 !important;
+  color: #2d2d2d !important;
+}
