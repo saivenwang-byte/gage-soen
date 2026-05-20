@@ -299,7 +299,7 @@ export default function AoSoPage() {
         <button
           type="button"
           onClick={runSearch}
-          disabled={searchLoading || !userLocation?.lat || locationLoading}
+          disabled={searchLoading || !userLocation?.lat}
           className="btn btn-mosaic aoso-search-btn"
         >
           {searchLoading
