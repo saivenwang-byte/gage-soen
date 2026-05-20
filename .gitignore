@@ -7,6 +7,7 @@ export-bundle/
 export-text-for-ai/
 .env
 .env.local
+.env.render
 backend/.venv/
 backend/data/cookies/*
 !backend/data/cookies/.gitkeep

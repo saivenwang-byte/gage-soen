@@ -12,6 +12,6 @@ npm run build:deploy
 $env:SERVE_FRONTEND = "1"
 Write-Host "构建完成。启动: cd backend && set SERVE_FRONTEND=1&& node server.js" -ForegroundColor Green
 
-Start-Process "https://dashboard.render.com/select-repo?type=blueprint"
-Write-Host "已打开 Render Blueprint。选仓库 gage-soen 后一键创建 jiegasuan 服务。" -ForegroundColor Green
+Start-Process "https://render.com/deploy?repo=https://github.com/saivenwang-byte/gage-soen"
+Write-Host "已打开 Render Deploy 页面。登录后点 Approve 即可按 render.yaml 创建 jiegasuan。" -ForegroundColor Green
 Write-Host "部署后访问: https://jiegasuan.onrender.com/ 与 /api/health" -ForegroundColor Cyan

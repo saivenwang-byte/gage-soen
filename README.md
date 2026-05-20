@@ -13,7 +13,7 @@
 | 你要做的 | 操作 |
 |----------|------|
 | 1. 推代码 | 双击 **`推送并部署.bat`** |
-| 2. 部署网站 | Render 用根目录 `render.yaml` 创建服务 `jiegasuan` |
+| 2. 部署网站 | 双击 **`一键部署Render.bat`** 或在 Render 点 Approve |
 | 3. 发给别人 | 链接 **https://jiegasuan.onrender.com/** |
 | 4. 小程序 | 微信开发者工具导入 **`legacy-miniprogram/`**，配置业务域名后转发 |
 
