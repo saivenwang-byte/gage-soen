@@ -74,7 +74,7 @@ export default function AoSoPage() {
   const stayDiscoveryMode = isStay && !stayUseDates;
 
   const runSearch = useCallback(() => {
-    if (!userLocation) return;
+    if (!userLocation?.lat) return;
     setHasSearched(true);
     searchDeals({
       scene,
@@ -299,7 +299,7 @@ export default function AoSoPage() {
         <button
           type="button"
           onClick={runSearch}
-          disabled={searchLoading || !userLocation || locationLoading}
+          disabled={searchLoading || !userLocation?.lat || locationLoading}
           className="btn btn-mosaic aoso-search-btn"
         >
           {searchLoading

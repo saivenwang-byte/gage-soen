@@ -170,15 +170,23 @@ app.post('/api/ugc/report', (req, res) => {
 });
 
 const publicDir = path.join(__dirnameServer, 'public');
-const serveFrontend =
-  process.env.SERVE_FRONTEND === '1' || fs.existsSync(path.join(publicDir, 'index.html'));
-if (serveFrontend) {
+const hasFrontendBuild = fs.existsSync(path.join(publicDir, 'index.html'));
+const serveFrontend = process.env.SERVE_FRONTEND === '1' || hasFrontendBuild;
+if (serveFrontend && hasFrontendBuild) {
   app.use(express.static(publicDir));
   app.get('*', (req, res, next) => {
     if (req.path.startsWith('/api') || req.path === '/ws' || req.path.startsWith('/health')) {
       return next();
     }
     res.sendFile(path.join(publicDir, 'index.html'));
+  });
+} else {
+  app.get('/', (_, res) => {
+    res.json({
+      ok: true,
+      message: '介嘎算 API 已运行。请用 http://localhost:5173 打开界面，或执行 backend 目录 npm run build:deploy 后设 SERVE_FRONTEND=1',
+      health: '/api/health',
+    });
   });
 }
 

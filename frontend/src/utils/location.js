@@ -162,6 +162,20 @@ export async function requestDeviceLocation() {
   throw lastErr || new Error('定位失败');
 }
 
+/** 避免桌面浏览器 GPS 冷启动一直挂起，超时后用南桥参考点 */
+export function requestDeviceLocationWithTimeout(ms = 8000) {
+  return Promise.race([
+    requestDeviceLocation(),
+    new Promise((_, reject) => {
+      setTimeout(() => {
+        const err = new Error('定位超时');
+        err.code = 3;
+        reject(err);
+      }, ms);
+    }),
+  ]);
+}
+
 export function formatLocationAccuracy(accuracyM) {
   if (accuracyM == null) return null;
   if (accuracyM <= 20) return `定位精度约 ±${accuracyM} 米（较好）`;

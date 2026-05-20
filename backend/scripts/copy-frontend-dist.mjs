@@ -11,6 +11,11 @@ if (!fs.existsSync(src)) {
   process.exit(1);
 }
 
-fs.rmSync(dest, { recursive: true, force: true });
-fs.cpSync(src, dest, { recursive: true });
+try {
+  fs.rmSync(dest, { recursive: true, force: true });
+  fs.cpSync(src, dest, { recursive: true });
+} catch (e) {
+  console.error('Node 复制失败，请手动: Copy-Item frontend\\dist backend\\public -Recurse');
+  process.exit(1);
+}
 console.log('已复制 frontend/dist -> backend/public');

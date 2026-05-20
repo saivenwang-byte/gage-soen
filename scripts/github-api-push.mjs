@@ -30,11 +30,6 @@ async function gh(url, opts = {}) {
   return text ? JSON.parse(text) : null;
 }
 
-try {
-  execSync('git fetch origin main', { stdio: 'pipe' });
-} catch {
-  /* 忽略 fetch 失败，下面用 API 的 ref */
-}
 const remoteSha = (await gh(`${base}/git/ref/heads/main`)).object.sha;
 const localSha = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
 if (remoteSha === localSha) {
@@ -42,12 +37,29 @@ if (remoteSha === localSha) {
   process.exit(0);
 }
 
+const authRemote = `https://x-access-token:${token}@github.com/${owner}/${repo}.git`;
+try {
+  execSync(`git fetch ${authRemote} main`, { stdio: 'pipe' });
+} catch {
+  /* 继续用 API compare */
+}
+
 console.log(`push ${remoteSha.slice(0, 7)} -> ${localSha.slice(0, 7)}`);
 const baseCommit = await gh(`${base}/git/commits/${remoteSha}`);
-const changed = execSync(`git diff --name-only ${remoteSha} HEAD`, { encoding: 'utf8' })
-  .trim()
-  .split(/\r?\n/)
-  .filter(Boolean);
+let changed = [];
+try {
+  changed = execSync('git diff --name-only origin/main HEAD', { encoding: 'utf8' })
+    .trim()
+    .split(/\r?\n/)
+    .filter(Boolean);
+} catch {
+  const cmp = await gh(`${base}/compare/${remoteSha}...${localSha}`);
+  changed = (cmp.files || []).map((f) => f.filename);
+}
+if (!changed.length) {
+  console.log('无文件差异，跳过');
+  process.exit(0);
+}
 
 const tree = [];
 for (const rel of changed) {

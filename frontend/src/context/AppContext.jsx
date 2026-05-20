@@ -5,7 +5,7 @@ import {
   buildFallbackLocation,
   FALLBACK_CENTER,
   loadLastGps,
-  requestDeviceLocation,
+  requestDeviceLocationWithTimeout,
   saveLastGps,
 } from '../utils/location';
 import { sameCompareGroup, compareRejectMessage } from '../utils/compareRules';
@@ -89,7 +89,7 @@ export function AppProvider({ children }) {
   const applyGeolocation = useCallback(async (onDone) => {
     setLocationLoading(true);
     try {
-      const loc = await requestDeviceLocation();
+      const loc = await requestDeviceLocationWithTimeout(8000);
       setUserLocation(loc);
       saveLastGps(loc);
     } catch (err) {
@@ -100,7 +100,7 @@ export function AppProvider({ children }) {
       } else if (err?.code === 'insecure') {
         setUserLocation({
           ...buildFallbackLocation('unavailable'),
-          label: '请用 https 或本机 localhost 打开，才能用手机定位',
+          label: '当前链接无法精确定位 · 已用南桥参考点，距离仅供参考',
         });
       } else if (denied) {
         setUserLocation(buildFallbackLocation('denied'));
@@ -114,6 +114,8 @@ export function AppProvider({ children }) {
   }, []);
 
   useEffect(() => {
+    // 先给南桥参考点，避免定位挂起时「开始搜索」一直灰掉
+    setUserLocation((prev) => prev ?? buildFallbackLocation('unavailable'));
     applyGeolocation();
   }, [applyGeolocation]);
 
