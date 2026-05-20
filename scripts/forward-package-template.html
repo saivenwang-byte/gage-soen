@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>介嘎算 __VERSION__</title>
+<style>
+body{margin:0;font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#fff8f0;color:#4a4540;padding:24px 20px}
+.card{max-width:420px;margin:0 auto;background:#fff;border-radius:16px;padding:28px 22px;box-shadow:0 4px 20px rgba(74,69,64,.1)}
+h1{margin:0 0 8px;font-size:22px}
+.tag{display:inline-block;background:#e8a84c;font-size:12px;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:12px}
+p{margin:0 0 14px;font-size:15px;line-height:1.55}
+.link-box{word-break:break-all;background:#f5ede3;padding:14px;border-radius:10px;font-size:14px;margin:16px 0;border:1px solid #e8a84c}
+a.btn{display:block;text-align:center;background:#e8a84c;color:#4a4540;text-decoration:none;font-weight:700;font-size:17px;padding:14px;border-radius:24px;margin:12px 0}
+button.copy{width:100%;padding:12px;border:1px solid #e8a84c;background:#fff;border-radius:20px;font-size:15px;cursor:pointer}
+.qr{display:block;margin:16px auto 0;width:200px;height:200px}
+.note{font-size:12px;color:#7a746c;margin-top:20px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="card">
+<span class="tag">v__VERSION__</span>
+<h1>介嘎算 ga-ge-soen</h1>
+<p>奉贤生活，样样介嘎算。<br/>街坊好价 · 暇兜兜 · 奥扫比价</p>
+<p><strong>点击下方按钮即可使用（线上正式版）。</strong></p>
+<div class="link-box" id="linkText">__LINK_DISPLAY__</div>
+<a class="btn" id="openBtn" href="__LINK_HREF__">打开介嘎算</a>
+<button type="button" class="copy" onclick="copyLink()">复制链接发微信</button>
+__QR_BLOCK__
+<p class="note">生成：__GENERATED__<br/>正式线上地址，无需本机开机。首次打开若慢为 Render 冷启动。</p>
+</div>
+<script>
+const link = '__LINK_JS__';
+function copyLink(){
+  navigator.clipboard.writeText(link).then(()=>alert('已复制')).catch(()=>prompt('复制',link));
+}
+</script>
+</body>
+</html>

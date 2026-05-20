@@ -11,6 +11,7 @@ import {
 import { sameCompareGroup, compareRejectMessage } from '../utils/compareRules';
 import { saveLocalUgc } from '../utils/localUgc';
 import { apiFetch } from '../config/api';
+import { startSearch, getSearchResult } from '../api/client';
 
 const AppContext = createContext(null);
 
@@ -52,6 +53,8 @@ export function AppProvider({ children }) {
   const [searchError, setSearchError] = useState(null);
   const [lastSearchAt, setLastSearchAt] = useState(null);
   const [usingLocalData, setUsingLocalData] = useState(false);
+  const [searchMode, setSearchMode] = useState('curated');
+  const [searchWarnings, setSearchWarnings] = useState([]);
 
   const [bottleCount, setBottleCount] = useState(0);
   const [bottleCollected, setBottleCollected] = useState(() => loadJson(BOTTLE_HISTORY_KEY, []));
@@ -71,7 +74,11 @@ export function AppProvider({ children }) {
   }, [preferences]);
 
   useEffect(() => {
-    localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    try {
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    } catch {
+      /* 头像过大等导致 QuotaExceeded — 由上传处压缩；仍失败则仅内存展示 */
+    }
   }, [profile]);
 
   useEffect(() => {
@@ -160,6 +167,8 @@ export function AppProvider({ children }) {
         setSearchError(null);
       }
 
+      setSearchMode('curated');
+      setSearchWarnings([]);
       setSearchLoading(true);
 
       try {
@@ -181,6 +190,97 @@ export function AppProvider({ children }) {
           : queryLocalDeals({ scene, subCategory, keyword, distance, center });
         applyList(local, true);
         if (!local.length) {
+          setSearchError(emptyMsg);
+        }
+      } finally {
+        setSearchLoading(false);
+      }
+    },
+    [userLocation, preferences]
+  );
+
+  /** 以手机定位为圆心的「公开源归类」搜索（POST /api/search，可触发爬虫+精选合并） */
+  const searchDealsLive = useCallback(
+    async (params) => {
+      if (!userLocation?.lat) return;
+
+      const scene = params.scene || 'all';
+      const subCategory = params.subCategory || 'all';
+      const distance = params.distance ?? preferences.defaultDistance;
+      const keyword = params.keyword?.trim() || '';
+      const center = {
+        lat: userLocation.lat,
+        lng: userLocation.lng,
+        name: userLocation.label || userLocation.name || '当前位置',
+      };
+
+      const emptyMsg =
+        subCategory && subCategory !== 'all'
+          ? '这个分类下暂无收录，试试其他标签或先「逛街坊收录」'
+          : '周边公开源暂未捞到，要勿要改用「逛街坊收录」或扔漂流瓶分享？';
+
+      setSearchMode('live');
+      setSearchWarnings([]);
+      setSearchLoading(true);
+      setSearchError(null);
+
+      const localInstant = queryLocalDeals({ scene, subCategory, keyword, distance, center });
+      if (localInstant.length) {
+        setSearchResults(localInstant.map((d) => normalizeDeal(d)));
+      }
+
+      try {
+        const scenes = scene === 'all' ? ['all'] : [scene];
+        const { jobId } = await startSearch({
+          scenes,
+          subCategory,
+          keyword,
+          distance,
+          maxDistanceKm: distance,
+          headcount: params.people ?? preferences.defaultPeople,
+          nights: params.nights,
+          sortBy: modeToSortBy(params.mode || preferences.defaultMode),
+          mapCenter: center,
+          useLiveSources: true,
+          dateFrom: params.dateFrom,
+          dateTo: params.dateTo,
+        });
+
+        const deadline = Date.now() + 48_000;
+        let last;
+        while (Date.now() < deadline) {
+          last = await getSearchResult(jobId);
+          if (last.status === 'done' || last.status === 'failed') break;
+          await new Promise((r) => setTimeout(r, 800));
+        }
+
+        const warnings = last?.warnings || [];
+        setSearchWarnings(warnings);
+
+        if (last?.results?.length) {
+          setSearchResults(last.results.map((d) => normalizeDeal(d)));
+          setUsingLocalData(false);
+          setLastSearchAt(new Date().toISOString());
+          setSearchError(null);
+        } else if (localInstant.length) {
+          setSearchResults(localInstant.map((d) => normalizeDeal(d)));
+          setUsingLocalData(true);
+          setSearchError(
+            warnings.length
+              ? `${emptyMsg}（${warnings.join('；')}）`
+              : emptyMsg
+          );
+        } else {
+          setSearchResults([]);
+          setSearchError(last?.message || emptyMsg);
+        }
+      } catch (e) {
+        console.warn('公开源搜索失败', e);
+        if (localInstant.length) {
+          setSearchResults(localInstant.map((d) => normalizeDeal(d)));
+          setUsingLocalData(true);
+          setSearchError('后台未响应，已显示本机精选；连上后再试「搜周边公开源」。');
+        } else {
           setSearchError(emptyMsg);
         }
       } finally {
@@ -373,7 +473,7 @@ export function AppProvider({ children }) {
           success: true,
           localOnly: true,
           message:
-            '已存到本机（预览或未开后台时正常）。奥扫搜店名、暇兜兜里都能捞到；开后台后家人上传会进全家池。',
+            '已扔进本机海面（预览或未开后台时正常）。暇兜兜能捞、奥扫能搜；连上后台后街坊上传会进社区漂流瓶池。',
           item: row,
         };
       }
@@ -409,7 +509,10 @@ export function AppProvider({ children }) {
     searchError,
     lastSearchAt,
     usingLocalData,
+    searchMode,
+    searchWarnings,
     searchDeals,
+    searchDealsLive,
     bottleCount,
     bottleCollected,
     appendBottleCollected,

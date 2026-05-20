@@ -1,4 +1,4 @@
-# 推送代码 + 打开部署控制台（在本机 PowerShell 运行）
+# 推送代码 + 打开部署控制台（版面确认通过后再用；确认前见 版面确认.md）
 # 用法：.\scripts\push-and-deploy.ps1
 
 $ErrorActionPreference = "Stop"

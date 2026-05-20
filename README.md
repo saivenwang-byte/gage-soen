@@ -6,9 +6,24 @@
 
 ---
 
+## 上线与分享（先看这个）
+
+完整步骤：**[docs/一键上线.md](docs/一键上线.md)**
+
+| 你要做的 | 操作 |
+|----------|------|
+| 1. 推代码 | 双击 **`推送并部署.bat`** |
+| 2. 部署网站 | Render 用根目录 `render.yaml` 创建服务 `jiegasuan` |
+| 3. 发给别人 | 链接 **https://jiegasuan.onrender.com/** |
+| 4. 小程序 | 微信开发者工具导入 **`legacy-miniprogram/`**，配置业务域名后转发 |
+
+正式地址写在 **`deploy.config.json`**，改完后执行 `node scripts/sync-deploy-config.mjs`。
+
+---
+
 ## 一、项目简介
 
-**介嘎算**是一个面向上海郊区的多场景生活消费实时优惠聚合与比价应用（H5 / 小程序形态）。它不是冷冰冰的比价计算器，而是一个有温度的本地生活价值发现平台。
+**介嘎算**是一个面向上海郊区的本地生活情报引擎（MVP 为 H5；小程序归档见 `legacy-miniprogram/`）。表面是比价，实质是街坊分享 + 公开信息归类。**战略总纲**见 [`docs/PRODUCT-SOUL.md`](docs/PRODUCT-SOUL.md)。
 
 ### 核心功能
 
@@ -317,7 +332,7 @@ GET /api/search/:jobId
 | 参数 | 类型 | 必填 | 说明 |
 |------|------|------|------|
 | keyword | string | 否 | 搜索关键词 |
-| scene | string | 否 | `all` / `stay` / `dining` / `coffee` / … |
+| scene | string | 否 | `all` / `stay` / `dinlao` / `coffee` / … |
 | people | number | 否 | 人数，默认 2 |
 | budget | string | 否 | 预算上限（元） |
 | distance | number | 否 | 半径 km：5 / 10 / 15 / 30 |
@@ -409,7 +424,7 @@ Content-Type: application/json
 {
   "merchantName": "某某店",
   "promoText": "满100减30",
-  "scene": "dining",
+  "scene": "dinlao",
   "submitter": "外婆"
 }
 ```
@@ -487,7 +502,7 @@ npm run login -- <platform>   # 保存 Cookie
 # 创建任务
 Invoke-RestMethod -Method POST -Uri http://localhost:3001/api/search `
   -ContentType application/json `
-  -Body '{"scenes":["dining"],"headcount":2,"mapCenter":{"lat":30.918,"lng":121.474}}'
+  -Body '{"scenes":["dinlao"],"headcount":2,"mapCenter":{"lat":30.918,"lng":121.474}}'
 
 # 将返回的 jobId 代入
 Invoke-RestMethod http://localhost:3001/api/search/<jobId>

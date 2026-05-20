@@ -1,0 +1,8 @@
+{
+  "description": "本地开发：允许 web-view 打开 http://127.0.0.1",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "minified": false
+  }
+}

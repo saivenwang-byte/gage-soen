@@ -55,8 +55,8 @@ module.exports = [
     "town": "庄行镇"
   },
   {
-    "id": "seed-dining-001",
-    "scene": "dining",
+    "id": "seed-dinlao-001",
+    "scene": "dinlao",
     "merchantName": "渔人码头海鲜坊",
     "address": "上海市奉贤区海湾镇海涵路渔人码头",
     "lat": 30.848,
@@ -81,8 +81,8 @@ module.exports = [
     "town": "海湾镇"
   },
   {
-    "id": "seed-dining-002",
-    "scene": "dining",
+    "id": "seed-dinlao-002",
+    "scene": "dinlao",
     "merchantName": "南桥老八样本帮菜",
     "address": "上海市奉贤区南桥镇解放东路288号",
     "lat": 30.918,
@@ -312,8 +312,8 @@ module.exports = [
     "town": "奉城镇"
   },
   {
-    "id": "seed-dining-003",
-    "scene": "dining",
+    "id": "seed-dinlao-003",
+    "scene": "dinlao",
     "merchantName": "柘林渔村小厨",
     "address": "上海市奉贤区柘林镇海塘路渔村码头旁",
     "lat": 30.828,

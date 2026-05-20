@@ -1,0 +1,36 @@
+.page {
+  min-height: 100vh;
+  background: #fff8f0;
+}
+.help-panel {
+  padding: 40rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+.help-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #4a4540;
+}
+.help-p,
+.help-li {
+  font-size: 28rpx;
+  color: #4a4540;
+  line-height: 1.5;
+}
+.help-url {
+  font-size: 24rpx;
+  color: #7a746c;
+  word-break: break-all;
+  margin-top: 12rpx;
+}
+.help-btn {
+  margin-top: 16rpx;
+  background: #e8a84c;
+  color: #4a4540;
+  font-size: 28rpx;
+}
+.help-btn.secondary {
+  background: #f5ede3;
+}

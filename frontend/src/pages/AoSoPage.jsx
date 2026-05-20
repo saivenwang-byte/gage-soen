@@ -9,6 +9,8 @@ import SceneSubPicker from '../components/SceneSubPicker';
 import DistanceSlider from '../components/DistanceSlider';
 import LocationStatusBar from '../components/LocationStatusBar';
 import SearchCriteriaSummary from '../components/SearchCriteriaSummary';
+import DataMaturityBanner from '../components/DataMaturityBanner';
+import AiBoundaryHint from '../components/AiBoundaryHint';
 import { normalizeDeal } from '../utils/normalizeDeal';
 import { getSubcategoryConfig, SCENE_TAXONOMY } from '../data/sceneTaxonomy';
 import { todayYMD, addDays } from '../utils/dateUtils';
@@ -45,6 +47,9 @@ export default function AoSoPage() {
     removeFromCompare,
     lastSearchAt,
     usingLocalData,
+    searchMode,
+    searchWarnings,
+    searchDealsLive,
     userLocation,
     locationLoading,
     refreshUserLocation,
@@ -73,7 +78,7 @@ export default function AoSoPage() {
   const showDateFilters = !isStay && showFilters;
   const stayDiscoveryMode = isStay && !stayUseDates;
 
-  const runSearch = useCallback(() => {
+  const runCuratedSearch = useCallback(() => {
     if (!userLocation?.lat) return;
     setHasSearched(true);
     searchDeals({
@@ -104,6 +109,39 @@ export default function AoSoPage() {
     dateTo,
     stayUseDates,
     searchDeals,
+  ]);
+
+  const runLiveSearch = useCallback(() => {
+    if (!userLocation?.lat) return;
+    setHasSearched(true);
+    searchDealsLive({
+      scene,
+      subCategory,
+      keyword,
+      mode,
+      people: headcount,
+      nights: isStay && stayUseDates ? nights : undefined,
+      distance: searchDistance,
+      dateFrom: isStay && !stayUseDates ? undefined : dateFrom || undefined,
+      dateTo: isStay && !stayUseDates ? undefined : isStay ? dateTo : dateFrom,
+    });
+    setTimeout(() => {
+      resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 200);
+  }, [
+    userLocation,
+    scene,
+    subCategory,
+    keyword,
+    mode,
+    headcount,
+    nights,
+    isStay,
+    searchDistance,
+    dateFrom,
+    dateTo,
+    stayUseDates,
+    searchDealsLive,
   ]);
 
   useEffect(() => {
@@ -175,14 +213,14 @@ export default function AoSoPage() {
         <LocationStatusBar
           userLocation={userLocation}
           loading={locationLoading}
-          onRefresh={() => refreshUserLocation(() => runSearch())}
+          onRefresh={() => refreshUserLocation(() => runCuratedSearch())}
         />
 
         <input
           type="search"
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && runSearch()}
+          onKeyDown={(e) => e.key === 'Enter' && runCuratedSearch()}
           placeholder="搜民宿、火锅、咖啡…可留空"
           style={{
             width: '100%',
@@ -278,7 +316,7 @@ export default function AoSoPage() {
 
         {isStay && (
           <p className="stay-group-hint-inline">
-            找「几人免几」：类型里点 <strong>几人免几</strong>；点开详情后可按人数算人均（不必先选日期）。
+            找「结伴礼遇」：民宿里点 <strong>结伴礼遇</strong>；点开详情后按人数看人均礼遇价（不必先选日期）。
           </p>
         )}
 
@@ -296,20 +334,34 @@ export default function AoSoPage() {
           showStayDates={stayUseDates}
         />
 
-        <button
-          type="button"
-          onClick={runSearch}
-          disabled={searchLoading || !userLocation?.lat}
-          className="btn btn-mosaic aoso-search-btn"
-        >
-          {searchLoading
-            ? '加载中…'
-            : hasSearched
-              ? '重新搜索'
-              : isStay
-                ? '③ 开始搜索'
-                : '④ 开始搜索'}
-        </button>
+        <p className="aoso-search-mode-hint">
+          以你手机定位为中心，在 {searchDistance} 公里内找店（奉贤字样仅测试用，上线跟您走）。
+        </p>
+        <div className="aoso-search-actions">
+          <button
+            type="button"
+            onClick={runCuratedSearch}
+            disabled={searchLoading || !userLocation?.lat}
+            className="btn btn-mosaic aoso-search-btn"
+          >
+            {searchLoading && searchMode === 'curated'
+              ? '加载中…'
+              : hasSearched && searchMode === 'curated'
+                ? '重新逛收录'
+                : isStay
+                  ? '③ 逛街坊收录'
+                  : '④ 逛街坊收录'}
+          </button>
+          <button
+            type="button"
+            onClick={runLiveSearch}
+            disabled={searchLoading || !userLocation?.lat}
+            className="btn btn-secondary aoso-search-btn-live"
+            title="汇总网上已公开优惠，可能较慢"
+          >
+            {searchLoading && searchMode === 'live' ? '公开源搜罗中…' : '搜周边公开源'}
+          </button>
+        </div>
 
         {isStay && (
           <>
@@ -349,7 +401,7 @@ export default function AoSoPage() {
                     <HeadcountPicker
                       value={headcount}
                       onChange={setHeadcount}
-                      label="入住人数（算几人免几）"
+                      label="入住人数（礼遇价测算）"
                     />
                   </>
                 )}
@@ -386,10 +438,21 @@ export default function AoSoPage() {
         {searchLoading && (
           <p style={{ textAlign: 'center', color: '#888' }}>帮侬搜罗中…稍等一歇歇 ☕</p>
         )}
+        {hasSearched && !searchLoading && (
+          <>
+            <DataMaturityBanner
+              searchMode={searchMode}
+              usingLocalData={usingLocalData}
+              searchWarnings={searchWarnings}
+              locationLabel={userLocation?.label || userLocation?.name}
+            />
+            <AiBoundaryHint style={{ margin: '0 0 12px' }} />
+          </>
+        )}
         {hasSearched && searchResults.length > 0 && !searchLoading && (
           <p className="hint-bar-warm">
             {isStay
-              ? '👆 种草：点卡片看实拍、环境标签、直线距离、几人免几；喜欢再查档期或导航'
+              ? '👆 种草：点卡片看实拍、环境标签、直线距离、结伴礼遇；喜欢再查档期或导航'
               : '👆 点下面白色卡片 → 看店名、距离、地址、实景图、导航'}
           </p>
         )}
@@ -460,11 +523,11 @@ export default function AoSoPage() {
           <p className="aoso-empty-prompt">
             {isStay ? (
               <>
-                请先选民宿类型、距离和排序，再点 <strong>「开始搜索」</strong>。不用先选日期——那是订房时才需要的可选步骤。
+                请先选民宿类型、距离和排序，再点 <strong>「逛街坊收录」</strong>。不用先选日期——那是订房时才需要的可选步骤。
               </>
             ) : (
               <>
-                请先在上方选分类、日期人数和排序，再点 <strong>「开始搜索」</strong>，店铺会出现在这里。
+                请先在上方选分类、距离和排序，再点 <strong>「逛街坊收录」</strong>或<strong>「搜周边公开源」</strong>，店铺会出现在这里。
               </>
             )}
           </p>

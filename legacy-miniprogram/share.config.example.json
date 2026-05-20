@@ -1,0 +1,7 @@
+{
+  "appId": "请填写微信公众平台的小程序 AppID",
+  "h5Url": "https://你的域名或 Render 地址",
+  "miniProgramPath": "pages/webhome/webhome",
+  "envVersion": "trial",
+  "comment": "复制为 share.config.json 并填写。h5Url 须 HTTPS 且已在公众平台配置业务域名。"
+}

@@ -273,7 +273,9 @@ export default function XiaDouDouPage() {
         style={{ textAlign: 'center', padding: '24px 16px 20px' }}
       >
         <h1 style={{ margin: 0, fontSize: '22px', fontFamily: 'var(--font-title)' }}>🍾 暇兜兜</h1>
-        <p style={{ margin: '8px 0 0', fontSize: '13px', opacity: 0.85 }}>
+        <p style={{ margin: '8px 0 0', fontSize: '13px', opacity: 0.85, lineHeight: 1.5 }}>
+          海上的瓶子多是街坊、朋友扔进的好价情报——捞到就像听人一句耳语。
+          <br />
           海面还有 <strong>{currentStock}</strong> 只瓶（最多攒 {BOTTLE_CONFIG.MAX_STOCK} 只）
           {collected.length > 0 && (
             <>
@@ -290,7 +292,7 @@ export default function XiaDouDouPage() {
           subCategory={subCategory}
           onSceneChange={handleSceneChange}
           onSubChange={handleSubChange}
-          hint="① 选瓶子类型 ② 捞一只 ③ 点「走进这家店」看环境·价格·服务（不是直接导航）"
+          hint="① 选瓶子类型 ② 捞一只 ③ 点「走进这家店」看是谁分享的、环境·价格·服务"
         />
         <DistanceSlider
           value={pickDistance}

@@ -3,6 +3,7 @@ $ErrorActionPreference = "Stop"
 $root = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 Set-Location $root
 
+node (Join-Path $PSScriptRoot "sync-deploy-config.mjs")
 node (Join-Path $PSScriptRoot "github-api-push.mjs")
 
 Write-Host "==> 本地构建（与 Render 相同流程）..." -ForegroundColor Cyan

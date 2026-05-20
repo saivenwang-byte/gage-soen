@@ -11,6 +11,8 @@ import DealImage from './DealImage';
 import NavRouteModal from './NavRouteModal';
 import CardQuickActions from './CardQuickActions';
 import GroupPromoBlock from './GroupPromoBlock';
+import VerificationBadge from './VerificationBadge';
+import AiBoundaryHint from './AiBoundaryHint';
 
 export default function DealDetailSheet({
   item: raw,
@@ -148,8 +150,22 @@ export default function DealDetailSheet({
           <div className="deal-detail-body">
             <div className="deal-head">
               <span className="scene-icon">{item.sceneIcon}</span>
-              <h2>{item.merchantName || item.title}</h2>
+              <h2>
+                {item.merchantName || item.title}
+                {item.promoKindBadge && (
+                  <span className="promo-kind-badge" style={{ marginLeft: 8 }}>
+                    {item.promoKindBadge}
+                  </span>
+                )}
+                <VerificationBadge verified={item.verified} />
+              </h2>
             </div>
+            <AiBoundaryHint style={{ margin: '8px 0 0' }} />
+            {item.promoKindLabel && item.promoKind !== 'regular' && (
+              <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--color-text-muted)' }}>
+                优惠性质：{item.promoKindLabel}
+              </p>
+            )}
 
             {distText && distText !== '距离未知' && (
               <p className="deal-detail-distance">

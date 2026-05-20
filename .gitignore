@@ -18,3 +18,7 @@ backend/data/*.log.jsonl
 __pycache__/
 *.docx
 给DeepSeek的文字资料/
+legacy-miniprogram/share.config.js
+legacy-miniprogram/share.config.json
+转发链接.txt
+ONLINE-URL.txt

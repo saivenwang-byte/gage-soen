@@ -1,0 +1,9 @@
+<view class="page">
+  <view wx:if="{{showHelp}}" class="help-panel">
+    <text class="help-title">介嘎算</text>
+    <text class="help-p">内嵌线上 H5，需已部署且配置业务域名。</text>
+    <text class="help-url">地址：{{url}}</text>
+    <button class="help-btn" bindtap="onRetry">重新加载</button>
+  </view>
+  <web-view wx:if="{{url}}" src="{{url}}" binderror="onWebError" bindload="onWebLoad"></web-view>
+</view>

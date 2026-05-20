@@ -96,7 +96,10 @@ app.get('/api/meta/map-center', (_, res) => {
 });
 
 app.get('/api/meta/sources', (_, res) => {
-  res.json({ sources: listSources(), note: '家庭自用，请配置 ENABLED_SOURCES 与 Cookie' });
+  res.json({
+    sources: listSources(),
+    note: '爬虫为战略储备；默认精选+UGC。公开源需 Cookie，见 docs/PRODUCT-SOUL.md',
+  });
 });
 
 app.get('/api/meta/towns', (_, res) => {

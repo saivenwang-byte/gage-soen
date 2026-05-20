@@ -26,7 +26,7 @@ function haystack(item) {
 
 function matchScene(item, scene) {
   if (!scene || scene === 'all') return true;
-  if (scene === 'coffee') return item.scene === 'coffee' || item.scene === 'dining';
+  if (scene === 'coffee') return item.scene === 'coffee' || item.scene === 'dinlao';
   return item.scene === scene;
 }
 
