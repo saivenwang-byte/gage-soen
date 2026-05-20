@@ -6,6 +6,7 @@ import { normalizeDeal, formatDealMeta } from '../utils/normalizeDeal';
 import { calculateDistance, formatDistance, formatDistanceKm } from '../utils/geo';
 import { getDealExternalLinks } from '../utils/dealLinks';
 import { getDeviceId } from '../utils/deviceId';
+import { apiUrl } from '../config/api';
 import DealImage from './DealImage';
 import NavRouteModal from './NavRouteModal';
 import CardQuickActions from './CardQuickActions';
@@ -45,7 +46,7 @@ export default function DealDetailSheet({
   const handleConfirm = async () => {
     setIsConfirming(true);
     try {
-      const res = await fetch('/api/confirm', {
+      const res = await fetch(apiUrl('/confirm'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -63,7 +64,7 @@ export default function DealDetailSheet({
   };
 
   const handleNavigate = async (deal) => {
-    fetch('/api/navigate', {
+    fetch(apiUrl('/navigate'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

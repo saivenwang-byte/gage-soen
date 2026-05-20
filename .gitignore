@@ -1,6 +1,7 @@
 .cursor/
 node_modules/
 dist/
+backend/public/
 preview-lock/dist/
 export-bundle/
 export-text-for-ai/

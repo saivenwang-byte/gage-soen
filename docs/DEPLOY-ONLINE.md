@@ -18,8 +18,8 @@ npm run dev
 
 | 服务 | 地址 |
 |------|------|
-| 前端（Vite + HTTPS） | **https://localhost:5173** |
-| 同 WiFi 手机 | **https://你的电脑IP:5173**（终端里 Network 一行） |
+| 前端（Vite 开发） | **http://localhost:5173** |
+| 同 WiFi 手机 | **http://你的电脑IP:5173**（要定位时用 `VITE_DEV_HTTPS=1` 开 https） |
 | 后端 API | **http://localhost:3001** |
 | 健康检查 | http://localhost:3001/api/health |
 
@@ -27,17 +27,21 @@ npm run dev
 
 ---
 
-## 二、推送到 GitHub（部署前必做）
+## 二、推送到 GitHub
 
-仓库目前可能还没有首次 commit / remote，请先：
+仓库：`https://github.com/saivenwang-byte/gage-soen`（分支 `main`）
+
+**一键（推荐）**：双击项目根目录 `推送并部署.bat`，或在 PowerShell：
 
 ```powershell
 cd "d:\【私人】\【外婆闺蜜比价】"
-git add .
-git commit -m "介嘎算 MVP：前后端可部署"
-# 在 GitHub 新建空仓库后：
-git remote add origin https://github.com/你的用户名/jiegasuan.git
-git push -u origin master
+.\scripts\push-and-deploy.ps1
+```
+
+仅推送：
+
+```powershell
+git push origin main
 ```
 
 ---
@@ -49,9 +53,10 @@ git push -u origin master
 3. 连接 GitHub 仓库，**Root Directory** 填：`backend`  
 4. **Build Command**：`npm install`  
 5. **Start Command**：`npm start`  
-6. **Environment**：`PORT` = `3001`（Render 也会注入 `PORT`，`config.js` 已读取）  
-7. 部署完成后得到地址，例如：`https://jiegasuan-api.onrender.com`  
-8. 验证：浏览器打开 `https://你的服务.onrender.com/api/health` 应返回 `{"ok":true,...}`
+6. **Health Check Path**：`/api/health`（仓库 `render.yaml` 已配置）  
+7. **不要** 手动写死 `PORT`；`config.js` 会读 Render 注入的 `process.env.PORT`  
+8. 部署完成后得到地址，例如：`https://jiegasuan-api.onrender.com`  
+9. 验证：打开 `https://你的服务.onrender.com/api/health` 应返回 `{"ok":true,"status":"ok",...}`
 
 ---
 
@@ -82,7 +87,16 @@ npx vercel --prod
 
 ---
 
-## 五、前后端联通检查
+## 五、前端 API 已统一
+
+所有请求经 `frontend/src/config/api.js`：
+
+- 本地：默认 `API_BASE=/api`（Vite 代理到 3001）
+- 线上：`VITE_API_BASE=https://你的后端.onrender.com/api`（**必须含 `/api`，末尾无斜杠**）
+
+---
+
+## 六、前后端联通检查
 
 1. 打开 `https://你的前端.vercel.app`  
 2. F12 → Network，奥扫搜索或暇兜兜捞瓶，应有请求到 `https://你的后端.onrender.com/api/...`  
@@ -92,7 +106,7 @@ npx vercel --prod
 
 ---
 
-## 六、免费方案限制
+## 七、免费方案限制
 
 - Render 免费实例冷启动约 30–60 秒，久未访问会慢  
 - Vercel 前端静态托管，爬虫/Playwright 仍在后端，线上默认 `DATA_SOURCE=curated` 种子数据  

@@ -169,7 +169,22 @@ app.post('/api/ugc/report', (req, res) => {
   res.json({ ok: true, success: true, message: '已收录，下次搜索会并入结果', item: row });
 });
 
+const publicDir = path.join(__dirnameServer, 'public');
+const serveFrontend =
+  process.env.SERVE_FRONTEND === '1' || fs.existsSync(path.join(publicDir, 'index.html'));
+if (serveFrontend) {
+  app.use(express.static(publicDir));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path === '/ws' || req.path.startsWith('/health')) {
+      return next();
+    }
+    res.sendFile(path.join(publicDir, 'index.html'));
+  });
+}
+
 httpServer.listen(config.port, '0.0.0.0', () => {
-  console.log(`介嘎算 API http://0.0.0.0:${config.port} — ${config.slogan}`);
+  const base = `http://0.0.0.0:${config.port}`;
+  console.log(`介嘎算 API ${base} — ${config.slogan}`);
+  if (serveFrontend) console.log(`H5 界面 ${base}/`);
   console.log(`WebSocket ws://localhost:${config.port}/ws?jobId=<id>`);
 });

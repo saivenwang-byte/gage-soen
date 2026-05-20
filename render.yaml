@@ -1,16 +1,16 @@
-# Render.com — 后端 API（免费 Web Service）
-# Dashboard: New → Blueprint → 连接本仓库，或手动创建 Web Service 指向 backend/
+# Render — 单服务：API + 前端 H5（同域 /api，无需 Vercel）
 services:
   - type: web
-    name: jiegasuan-api
+    name: jiegasuan
     runtime: node
     rootDir: backend
-    buildCommand: npm install
+    buildCommand: npm install && cd ../frontend && npm ci && VITE_API_BASE=/api npm run build && node ../backend/scripts/copy-frontend-dist.mjs && cd ../backend
     startCommand: npm start
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
         value: "20"
-      - key: PORT
-        value: "3001"
       - key: DATA_SOURCE
         value: curated
+      - key: SERVE_FRONTEND
+        value: "1"

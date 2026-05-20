@@ -13,8 +13,7 @@ import {
   hasPickedFirstToday,
   markFirstPickDone,
 } from '../utils/bottleLimits';
-
-const API_BASE = import.meta.env.VITE_API_BASE || '/api';
+import { apiUrl } from '../config/api';
 
 const SCENE_RING_CLASS = {
   all: 'bottle-ring-all',
@@ -180,7 +179,7 @@ export default function XiaDouDouPage() {
           scene,
           subCategory,
         });
-        const res = await fetch(`${API_BASE}/bottle/random?${q}`);
+        const res = await fetch(apiUrl(`/bottle/random?${q}`));
         let data = await res.json();
 
         if (!data.empty && data.data) {

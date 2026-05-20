@@ -10,10 +10,9 @@ import {
 } from '../utils/location';
 import { sameCompareGroup, compareRejectMessage } from '../utils/compareRules';
 import { saveLocalUgc } from '../utils/localUgc';
+import { apiFetch } from '../config/api';
 
 const AppContext = createContext(null);
-
-const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 
 const EMPTY_BOTTLE_RATE = 0.1;
 const FAV_KEY = 'jiegasuan_favorites';
@@ -25,20 +24,6 @@ function modeToSortBy(mode) {
   if (mode === 'cheap') return 'saving';
   if (mode === 'experience') return 'blogger';
   return 'value';
-}
-
-async function apiFetch(path, options = {}) {
-  const res = await fetch(`${API_BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
-    ...options,
-  });
-  const json = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    const err = new Error(json.message || json.error || `API ${res.status}`);
-    err.status = res.status;
-    throw err;
-  }
-  return json;
 }
 
 function loadJson(key, fallback) {
